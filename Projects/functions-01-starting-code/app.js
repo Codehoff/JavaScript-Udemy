@@ -16,14 +16,14 @@ const getPlayerChoice = function () {
     alert(`Invalid choice! We chose ${DEFAULT_USER_CHOICE} for you!`);
     return DEFAULT_USER_CHOICE;
   }
-  return `You chose: ${selection}`;
+  return;
 };
 
 const getComputerChoice = function () {
   arr = [ROCK, PAPER, SCISSORS];
   const selection = arr[Math.ceil(Math.random() * 3) - 1];
 
-  return `Computer chose: ${selection}`;
+  return `${selection}`;
 };
 
 const determineWinner = (cChoice, pChoice) =>
@@ -41,12 +41,19 @@ startGameBtn.addEventListener("click", function () {
     return;
   }
 
-  (gameisRunning = true), console.log("Game is starting...");
+  gameisRunning = true;
+  console.log("Game is starting...");
   const playerSelection = getPlayerChoice();
-  console.log(playerSelection);
   const computerSelection = getComputerChoice();
-  console.log(computerSelection);
   const winner = determineWinner(computerSelection, playerSelection);
-  console.log(winner);
+  let message = `You picked ${playerSelection}, computer picked ${computerSelection}`
+  if (winner === RESULT_DRAW) {
+    message = message + " || Draw"
+  } else if (winner === RESULT_PLAYER_WIN) {
+    message = message + " || You won!"
+  } else {
+    message = message + " || You lost!"
+  }
+  alert(message);
   gameisRunning = false;
 });
